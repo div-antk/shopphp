@@ -24,10 +24,10 @@ if($staff_name=='')
 }
 else
 {
-    // スタッフ名が入力されていたらスタッフ名を表示
-    print 'スタッフ名 :';
-    print $staff_pass;
-    print '<br>';
+  // スタッフ名が入力されていたらスタッフ名を表示
+  print 'スタッフ名 :';
+  print $staff_name;
+  print '<br>';
 }
 
 if($staff_pass=='')
@@ -49,6 +49,7 @@ if($staff_name=='' || $staff_pass != $staff_pass2)
 }
 else
 {
+  // MD5を通して暗号化する
   $staff_pass = md5($staff_pass);
   print '<form method="post" action="staff_add_done.php">';
   print '<input type="hidden" name="name" value="'.$staff_name.'">';
