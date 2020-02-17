@@ -38,7 +38,8 @@ print 'を追加しました。<br>';
 catch (Exception $e)
 {
   print 'ただいま障害により大変ご迷惑をおかけしております。';
-  exit(); // 強制終了
+  echo '捕捉した例外: ',  $e->getMessage(), "\n";
+  exit();
 }
 
 ?>
