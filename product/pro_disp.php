@@ -11,11 +11,7 @@
 try
 {
 
-$pro_name = $_POST['name'];
-$pro_price = $_POST['price'];
-
-$pro_name = htmlspecialchars($pro_name, ENT_QUOTES, 'UTF-8');
-$pro_price = htmlspecialchars($pro_price, ENT_QUOTES, 'UTF-8');
+$pro_code = $_GET['procode'];
 
 $dsn = 'mysql:dbname=shop;host=localhost;charset=utf8';
 $user = 'root';
@@ -23,28 +19,41 @@ $password = '';
 $dbh = new PDO($dsn, $user, $password);
 $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-$sql = 'INSERT INTO mst_product(name,price) VALUES (?,?)';
+$sql = 'SELECT name,price FROM mst_product WHERE code=?';
 $stmt = $dbh->prepare($sql);
-$data[] = $pro_name;
-$data[] = $pro_price;
+$data[] = $pro_code;
 $stmt->execute($data);
 
-$dbh = null;
+$rec = $stmt->fetch(PDO::FETCH_ASSOC);
+$pro_name=$rec['name'];
+$pro_price=$rec['price'];
 
-print $pro_name;
-print 'を追加しました。<br>';
+$dbh = null;
 
 }
 catch (Exception $e)
 {
   print 'ただいま障害により大変ご迷惑をおかけしております。';
-  echo '捕捉した例外: ',  $e->getMessage(), "\n";
-  exit();
+  exit(); // 強制終了
 }
 
 ?>
 
-<a href="pro_list.php">戻る</a>
+商品情報参照<br>
+<br>
+商品コード<br>
+<?php print $pro_code; ?>
+<br>
+商品名<br>
+<?php print $pro_name; ?>
+<br>
+価格<br>
+<?php print $pro_price; ?>
+<br>
+<br>
+<form>
+  <input type="button" onclick="history.back()" value="戻る">
+</form>
 
 </body>
 </html>
