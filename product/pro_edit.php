@@ -39,7 +39,7 @@ catch (Exception $e)
 
 ?>
 
-商品修正<br>
+商品編集<br>
 <br>
 商品コード<br>
 <?php print $pro_code; ?>

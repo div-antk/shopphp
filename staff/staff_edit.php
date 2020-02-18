@@ -38,7 +38,7 @@ catch (Exception $e)
 
 ?>
 
-スタッフ修正<br>
+スタッフ編集<br>
 <br>
 スタッフコード<br>
 <?php print $staff_code; ?>
