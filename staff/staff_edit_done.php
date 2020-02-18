@@ -42,7 +42,7 @@ catch (Exception $e)
 
 ?>
 
-修正しました。<br>
+編集しました。<br>
 <br>
 <a href="staff_list.php">戻る</a>
 

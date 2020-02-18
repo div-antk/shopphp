@@ -11,9 +11,11 @@
 try
 {
 
+$pro_code = $_POST['code'];
 $pro_name = $_POST['name'];
 $pro_price = $_POST['price'];
 
+$pro_code = htmlspecialchars($pro_code, ENT_QUOTES, 'UTF-8');
 $pro_name = htmlspecialchars($pro_name, ENT_QUOTES, 'UTF-8');
 $pro_price = htmlspecialchars($pro_price, ENT_QUOTES, 'UTF-8');
 
@@ -23,16 +25,16 @@ $password = '';
 $dbh = new PDO($dsn, $user, $password);
 $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-$sql = 'INSERT INTO mst_product(name,price) VALUES (?,?)';
+$sql = 'UPDATE mst_product SET name=?,price=? WHERE code=?';
 $stmt = $dbh->prepare($sql);
 $data[] = $pro_name;
 $data[] = $pro_price;
+$data[] = $pro_code;
 $stmt->execute($data);
 
 $dbh = null;
 
-print $pro_name;
-print 'を追加しました。<br>';
+print '編集しました。<br>';
 
 }
 catch (Exception $e)
