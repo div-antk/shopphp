@@ -14,6 +14,8 @@ try
 $pro_code = $_POST['code'];
 $pro_name = $_POST['name'];
 $pro_price = $_POST['price'];
+$pro_image_name_old = $_POST['image_name_old'];
+$pro_image_name = $_POST['image_name'];
 
 $pro_code = htmlspecialchars($pro_code, ENT_QUOTES, 'UTF-8');
 $pro_name = htmlspecialchars($pro_name, ENT_QUOTES, 'UTF-8');
@@ -25,14 +27,20 @@ $password = '';
 $dbh = new PDO($dsn, $user, $password);
 $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-$sql = 'UPDATE mst_product SET name=?,price=? WHERE code=?';
+$sql = 'UPDATE mst_product SET name=?,price=?,image=? WHERE code=?';
 $stmt = $dbh->prepare($sql);
 $data[] = $pro_name;
 $data[] = $pro_price;
+$data[] = $pro_image_name;
 $data[] = $pro_code;
 $stmt->execute($data);
 
 $dbh = null;
+
+if($pro_image_name_old !='')
+{
+  unlink('./image/'.$pro_image_name_old);
+}
 
 print '編集しました。<br>';
 

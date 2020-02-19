@@ -55,7 +55,7 @@ catch (Exception $e)
 <?php print $pro_code; ?>
 <br>
 <br>
-<form method="post" action="pro_edit_check.php" enctype="multipart/form-dara">
+<form method="post" action="pro_edit_check.php" enctype="multipart/form-data">
   <input type="hidden" name="code" value="<?php print $pro_code;?>">
   <input type="hidden" name="image_name_old" value="<?php print $pro_image_name_old;?>">
   商品名<br>

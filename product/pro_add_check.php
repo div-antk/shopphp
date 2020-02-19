@@ -39,7 +39,7 @@ else
 
 if($pro_image['size'] > 0)
 {
-  if($pro_image['size'] > 10000)
+  if($pro_image['size'] > 50000)
   {
     print "画像が大きすぎます";
   }
@@ -51,7 +51,7 @@ if($pro_image['size'] > 0)
   }
 }
 
-if($pro_name=='' || preg_match('/\A[0-9]+\z/', $pro_price)==0 || $pro_image['size'] > 10000)
+if($pro_name=='' || preg_match('/\A[0-9]+\z/', $pro_price)==0 || $pro_image['size'] > 50000)
 {
   print '<form>';
   print '<input type="button" onclick="history.back()" value="戻る">';
