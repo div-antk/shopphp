@@ -37,9 +37,12 @@ $stmt->execute($data);
 
 $dbh = null;
 
-if($pro_image_name_old !='')
+if($pro_image_name_old != $pro_image_name) // 同じ画像がアップされたら何もしない
 {
-  unlink('./image/'.$pro_image_name_old);
+  if($pro_image_name_old !='')
+  {
+    unlink('./image/'.$pro_image_name_old);
+  }
 }
 
 print '編集しました。<br>';
