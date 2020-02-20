@@ -55,5 +55,8 @@ catch (Exception $e)
 
 ?>
 
+<br>
+<a href="../staff_login/staff_top.php">メインメニューへ</a><br>
+
 </body>
 </html>
