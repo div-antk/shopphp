@@ -17,7 +17,7 @@ try
   $dbh = new PDO($dsn, $user, $password);
   $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   
-  $sql = 'SELECT name FROM mst_staff WHERE code=? AND password=?';
+  $sql = 'SELECT name FROM st_staff WHERE code=? AND password=?';
   $stmt = $dbh->prepare($sql);
   $data[] = $staff_code;
   $data[] = $staff_pass;
@@ -39,12 +39,19 @@ try
   }
 }
 
-catch (Exception $e)
+catch (PDOException $e)
 {
-  print 'ただいま障害により大変ご迷惑をおかけしております。';
-  // エラーメッセージを表示させる
-  echo '捕捉した例外: ',  $e->getMessage(), "\n";
+  print 'ただいま障害により大変ご迷惑をおかけしております。<br>'
+  .$e->getMessage()."<br>";
   exit();
 }
+
+// catch (Exception $e)
+// {
+//   print 'ただいま障害により大変ご迷惑をおかけしております。';
+//   // エラーメッセージを表示させる
+//   echo '捕捉した例外: ',  $e->getMessage(), "\n";
+//   exit();
+// }
 
 ?>
