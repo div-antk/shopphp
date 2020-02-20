@@ -12,6 +12,7 @@ try
 {
 
 $pro_code = $_POST['code'];
+$pro_image_name = $_POST['image_name'];
 
 $dsn = 'mysql:dbname=shop;host=localhost;charset=utf8';
 $user = 'root';
@@ -25,6 +26,11 @@ $data[] = $pro_code;
 $stmt->execute($data);
 
 $dbh = null;
+
+if ($pro_image_name != '')
+{
+  unlink('./image/'.$pro_image_name);
+}
 
 }
 catch (Exception $e)
