@@ -47,13 +47,23 @@ try
   print '<input type="submit" name="delete" value="削除">';
   print '</form>';
 }
-catch (Exception $e)
+
+catch (PDOException $e)
 {
-  print 'ただいま障害により大変ご迷惑をおかけしております。';
-  exit(); // 強制終了
+  print 'ただいま障害により大変ご迷惑をおかけしております。<br>' .$e->getMessage()."<br>";
+  exit();
 }
 
+// catch (Exception $e)
+// {
+//   print 'ただいま障害により大変ご迷惑をおかけしております。';
+//   exit(); // 強制終了
+// }
+
 ?>
+
+<br>
+<a href="../staff_login/staff_top.php">メインメニューへ</a><br>
 
 </body>
 </html>
