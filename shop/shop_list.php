@@ -60,6 +60,9 @@ try
     print '</a>';
     print '<br>';
   }
+  print '<br>';
+  print '<a href="shop_cartcheck.php">カートの中を見る</a><br>';
+  
 }
 catch (PDOException $e)
 {
