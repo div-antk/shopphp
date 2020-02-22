@@ -64,14 +64,6 @@ foreach ($cart as $key => $val)
   }
 }
 $dbh = null;
-
-for($i=0; $i<$max; $i++)
-{
-  print $pro_name[$i];
-  print $pro_image[$i];
-  print "${pro_price[$i]}円";
-  print '<br>';
-}
 }
 
 catch (PDOException $e)
@@ -80,6 +72,19 @@ catch (PDOException $e)
   exit();
 }
 
+?>
+
+ショッピングカート<br>
+<br>
+<?php for($i=0; $i<$max; $i++)
+{
+?>
+  <?php print $pro_name[$i]; ?>
+  <?php print $pro_image[$i]; ?>
+  <?php print "${pro_price[$i]}円"; ?>
+  <br>
+<?php
+}
 ?>
 
 <form>
