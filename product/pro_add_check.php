@@ -27,12 +27,13 @@ else
 
 <?php
 
-$pro_name = $_POST['name'];
-$pro_price = $_POST['price'];
-$pro_image = $_FILES['image'];
+require_once('../common/common.php');
 
-$pro_name = htmlspecialchars($pro_name, ENT_QUOTES, 'UTF-8');
-$pro_price = htmlspecialchars($pro_price, ENT_QUOTES, 'UTF-8');
+$post = sanitize($_POST);
+
+$pro_name = $post['name'];
+$pro_price = $post['price'];
+$pro_image = $_FILES['image'];
 
 if($pro_name=='')
 {
