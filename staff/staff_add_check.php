@@ -26,15 +26,12 @@ else
 
 <?php
 
-// 入力データを受け取って変数にコピー
-$staff_name = $_POST['name'];
-$staff_pass = $_POST['pass'];
-$staff_pass2 = $_POST['pass2'];
+require_once('../common/common.php');
 
-// 入力データに安全対策
-$staff_name = htmlspecialchars($staff_name, ENT_QUOTES, 'UTF-8');
-$staff_pass = htmlspecialchars($staff_pass, ENT_QUOTES, 'UTF-8');
-$staff_pass2 = htmlspecialchars($staff_pass2, ENT_QUOTES, 'UTF-8');
+$post = sanitize($_POST);
+$staff_name = $post['name'];
+$staff_pass = $post['pass'];
+$staff_pass2 = $post['pass2'];
 
 if($staff_name=='')
 {
