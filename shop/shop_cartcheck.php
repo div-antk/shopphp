@@ -83,7 +83,8 @@ catch (PDOException $e)
 ?>
   <?php print $pro_name[$i]; ?>
   <?php print $pro_image[$i]; ?>
-  <?php print "${pro_price[$i]}円"; ?>
+  <?php $total_price = $pro_price[$i] * $quantity[$i]; ?>
+  <?php print "${total_price}円"; ?>
   <input type="text" name="quantity<?php print $i; ?>" value="<?php print $quantity[$i]; ?>" style="width:40px">
   <br>
 <?php
