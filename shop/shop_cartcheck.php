@@ -32,6 +32,7 @@ try
 {
 
 $cart = $_SESSION['cart'];
+$quantity = $_SESSION['quantity'];
 $max = count($cart);
 
 // var_dump($cart);
@@ -76,19 +77,23 @@ catch (PDOException $e)
 
 ショッピングカート<br>
 <br>
+<form method="post" action="qty_change.php">
 <?php for($i=0; $i<$max; $i++)
 {
 ?>
   <?php print $pro_name[$i]; ?>
   <?php print $pro_image[$i]; ?>
-  <?php print "${pro_price[$i]}円"; ?>
+  <?php $total_price = $pro_price[$i] * $quantity[$i]; ?>
+  <?php print "${total_price}円"; ?>
+  <input type="text" name="quantity<?php print $i; ?>" value="<?php print $quantity[$i]; ?>" style="width:40px">
   <br>
 <?php
 }
 ?>
 
-<form>
-  <input type="button" onclick="history.back()" value="戻る">
+<input type="hidden" name="max" value="<?php print $max; ?>">
+<input type="submit" value="数量変更"><br>
+<input type="button" onclick="history.back()" value="戻る">
 </form>
 
 </body>

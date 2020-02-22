@@ -36,10 +36,13 @@ $pro_code = $_GET['procode'];
 if (isset($_SESSION['cart'])==true)
 {
   $cart = $_SESSION['cart']; // 現在のカートの内容を$cartにコピーする
+  $quantity = $_SESSION['quantity'];
 }
 
 $cart[] = $pro_code; // カートに商品を追加
-$_SESSION['cart']=$cart; // $_SESSIONにカートを保管する
+$quantity[] = 1;
+$_SESSION['cart'] = $cart; // $_SESSIONにカートを保管する
+$_SESSION['quantity'] = $quantity;
 
 }
 catch (PDOException $e)
