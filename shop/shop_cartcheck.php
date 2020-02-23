@@ -85,6 +85,7 @@ catch (PDOException $e)
   <?php print $pro_image[$i]; ?>
   <?php $total_price = $pro_price[$i] * $quantity[$i]; ?>
   <?php print "${total_price}円"; ?>
+  <input type="checkbox" name="delete<?php print $i; ?>">
   <input type="text" name="quantity<?php print $i; ?>" value="<?php print $quantity[$i]; ?>" style="width:40px">
   <br>
 <?php
