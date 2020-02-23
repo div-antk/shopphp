@@ -31,10 +31,24 @@ else
 try
 {
 
-$cart = $_SESSION['cart'];
-$quantity = $_SESSION['quantity'];
-$max = count($cart);
+if(isset($_SESSION['cart'])==true)
+{
+  $cart = $_SESSION['cart'];
+  $quantity = $_SESSION['quantity'];
+  $max = count($cart);
+}
+else
+{
+  $max = 0;
+}
 
+if($max == 0)
+{
+  print 'カートに商品がありません。<br>';
+  print '<br>';
+  print '<a href="shop_list.php">商品一覧に戻る</a><br>';
+  exit();
+}
 // var_dump($cart);
 // exit();
 
