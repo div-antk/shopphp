@@ -10,7 +10,22 @@
   $max = $post['max'];
   for($i = 0; $i < $max; $i++)
   {
+    if(preg_match("/\A[0-9]+\z/", $post['quantity'.$i])==0)
+    {
+      print '入力に誤りがあります。<br>';
+      print '<a href="shop_cartcheck.php">カートに戻る。</a><br>';
+      exit();
+    }
+    elseif($post['quantity'.$i]<1 || 10<$post['quantity'.$i])
+    {
+      print '1〜10で数字を入力してください。<br>';
+      print '<a href="shop_cartcheck.php">カートに戻る。</a><br>';
+      exit();
+    }
+    else
+    {
     $quantity[] = $post['quantity'.$i];
+    }
   }
   $cart = $_SESSION['cart'];
 
