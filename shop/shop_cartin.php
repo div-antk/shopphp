@@ -33,10 +33,16 @@ try
 
 $pro_code = $_GET['procode'];
 
-if (isset($_SESSION['cart'])==true)
+if(isset($_SESSION['cart'])==true)
 {
   $cart = $_SESSION['cart']; // 現在のカートの内容を$cartにコピーする
   $quantity = $_SESSION['quantity'];
+  if(in_array($pro_code, $cart)==true)
+  {
+    print 'その商品はすでにカートに入っています。<br>';
+    print '<a href="shop_list.php">商品一覧に戻ります。</a><br>';
+    exit();
+  }
 }
 
 $cart[] = $pro_code; // カートに商品を追加
