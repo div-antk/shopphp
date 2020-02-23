@@ -12,7 +12,17 @@
   {
     $quantity[] = $post['quantity'.$i];
   }
+  $cart = $_SESSION['cart'];
 
+  for($i=$max; 0 <= $i;$i--)
+    {
+      if(isset($_POST['delete'.$i])==true)
+      {
+        array_splice($cart,$i,1);
+        array_splice($quantity,$i,1);
+      }
+    }
+  $_SESSION['cart'] = $cart;
   $_SESSION['quantity'] = $quantity;
 
   header('Location: shop_cartcheck.php');
