@@ -122,6 +122,8 @@ catch (PDOException $e)
 <a href="shop_list.php">商品一覧に戻る</a>
 <!-- <input type="button" onclick="history.back()" value="戻る"> -->
 </form>
+<br>
+<a href="order_form.html">レジに進む</a><br>
 
 </body>
 </html>
