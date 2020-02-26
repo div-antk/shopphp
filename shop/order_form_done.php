@@ -41,6 +41,8 @@ $text .= "\n";
 $text .= "ご注文商品\n";
 $text .= "--------------------\n";
 
+// 注文した商品の情報
+
 $cart = $_SESSION['cart'];
 $quantity = $_SESSION['quantity'];
 $max = count($cart);
@@ -51,7 +53,7 @@ $password = '';
 $dbh = new PDO($dsn, $user, $password);
 $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-for($i=0; $i<$max; $i++)
+for($i=0 ; $i<$max ; $i++)
 {
   $sql = 'SELECT name,price FROM mst_product WHERE code=?';
   $stmt = $dbh->prepare($sql);
@@ -60,15 +62,52 @@ for($i=0; $i<$max; $i++)
 
   $rec = $stmt->fetch(PDO::FETCH_ASSOC);
 
-  $name = $rec['name'];
+  $pro_name = $rec['name'];
   $price = $rec['price'];
+  $price_array[] = $price;
   $total_quantity = $quantity[$i];
   $total_price = $price * $total_quantity;
 
-  $text .= $name.' ';
+  $text .= $pro_name.' ';
   $text .= $price.'円 x ';
   $text .= $total_quantity.'個 = ';
   $text .= $total_price."円 \n";
+}
+
+// 注文データを追加する
+
+$sql = 'INSERT INTO dat_order_customer (customer_code, c_name, c_email, c_postal_code1, c_postal_code2, c_address, c_tel) VALUES (?,?,?,?,?,?,?)';
+$stmt = $dbh->prepare($sql);
+$data = array();
+$data[] = 0;
+$data[] = $name;
+$data[] = $email;
+$data[] = $postal_code1;
+$data[] = $postal_code2;
+$data[] = $address;
+$data[] = $tel;
+$stmt->execute($data);
+
+// 直前で追加した注文コードを取得する
+
+$sql = 'SELECT LAST_INSERT_ID()'; // 直近で発番された番号を取得
+$stmt = $dbh->prepare($sql);
+$stmt->execute();
+$rec = $stmt->fetch(PDO::FETCH_ASSOC);
+$lastcode = $rec['LAST_INSERT_ID()'];
+
+// 商品明細を追加する
+
+for($i=0 ; $i<$max ; $i++)
+{
+  $sql = 'INSERT INTO dat_order_product (order_code, product_code, price, quantity) VALUES (?,?,?,?)';
+  $stmt = $dbh->prepare($sql);
+  $data = array();
+  $data[] = $lastcode;
+  $data[] = $cart[$i];
+  $data[] = $price_array[$i];
+  $data[] = $quantity[$i];
+  $stmt->execute($data);
 }
 
 $dbh = null;
