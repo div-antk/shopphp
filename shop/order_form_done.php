@@ -74,6 +74,12 @@ for($i=0 ; $i<$max ; $i++)
   $text .= $total_price."円 \n";
 }
 
+// 安全な処理のためテーブルロックをかける
+
+$sql = 'LOCK TABLES dat_order_customer WRITE,dat_order_product WRITE';
+$stmt = $dbh->prepare($sql);
+$stmt->execute();
+
 // 注文データを追加する
 
 $sql = 'INSERT INTO dat_order_customer (customer_code, c_name, c_email, c_postal_code1, c_postal_code2, c_address, c_tel) VALUES (?,?,?,?,?,?,?)';
@@ -110,7 +116,15 @@ for($i=0 ; $i<$max ; $i++)
   $stmt->execute($data);
 }
 
+// テーブルロックの解除
+
+$sql = 'UNLOCK TABLES';
+$stmt = $dbh->prepare($sql);
+$stmt->execute();
+
 $dbh = null;
+
+// 自動返信メールの文面
 
 $text .= "送料は無料です\n";
 $text .= "--------------------\n";
@@ -125,8 +139,12 @@ $text .= "株式会社はたらくねこ\n";
 $text .= "\n";
 $text .= "////////////////////\n";
 
+// \nを<br>に変換
+
 // print '<br>';
 // print nl2br($text);
+
+// お客様にメールを送信
 
 $title = 'ご注文ありがとうございます！';
 $header = 'From: info@hatarakuneko.co.jp';
@@ -134,6 +152,8 @@ $text = html_entity_decode($text, ENT_QUOTES, 'UTF-8');
 mb_language('Japanese');
 mb_internal_encoding('UTF-8');
 mb_send_mail($email, $title, $text, $header);
+
+// こちらにもメールを送信
 
 $title = 'お客様からのご注文がありました。';
 $header = 'From: '.$email;
@@ -151,6 +171,9 @@ catch (PDOException $e)
 }
 
 ?>
+
+<br>
+<a href="shop_list.php">商品一覧へ戻る</a>
 
 </body>
 </html>
