@@ -112,7 +112,13 @@ try
     $csv .= "\n";
   }
 
-  print nl2br($csv);
+  // print nl2br($csv); // テストでブラウザ表示用
+
+
+  $file = fopen('./orderdata.csv', 'w');
+  $csv = mb_convert_encoding($csv,'UTF-8');
+  fputs($file, $csv);
+  fclose($file);
 }
 
 catch (PDOException $e)
@@ -123,6 +129,9 @@ catch (PDOException $e)
 
 ?>
 
+<a href="orderdata.csv">注文データのダウンロード</a><br>
+<br>
+<a href="order_dl.php">日付選択へ戻る</a><br>
 <br>
 <a href="../staff_login/staff_top.php">メインメニューへ</a><br>
 
