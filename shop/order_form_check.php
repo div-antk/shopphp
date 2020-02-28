@@ -18,6 +18,11 @@ $postal_code1 = $post['postal_code1'];
 $postal_code2 = $post['postal_code2'];
 $address = $post['address'];
 $tel = $post['tel'];
+$order = $post['order'];
+$password = $post['password'];
+$password2 = $post['password2'];
+$gender = $post['gender'];
+$birth = $post['birth'];
 
 $okflg = true;
 
@@ -76,6 +81,40 @@ else
   print "電話番号<br>${tel}<br><br>";
 }
 
+if($order == 'order_member')
+  {
+    print '会員登録希望<br><br>';
+    if($password == '')
+    {
+      print 'パスワードを入力してください。<br><br>';
+      $okflg = false;
+    }
+    elseif($password != $password2)
+    {
+      print 'パスワードが一致しません。<br><br>';
+      $okflg = false;
+    }
+    else
+    {
+      print '性別<br>';
+
+      switch($gender)
+      {
+        case 'male':
+          print '男性';
+          break;
+        case 'female':
+          print '女性';
+          break;
+      }
+      print '<br><br>';
+
+      print '生まれ年<br>';
+      print "${birth}年代";
+      print '<br><br>';
+    }
+  }
+
 if($okflg == true)
 {
   print '<form method="post" action="order_form_done.php">';
@@ -96,6 +135,8 @@ else
     print '<input type="button" onclick="history.back()" value="戻る">';
   print '</form>';
 }
+
+
 
 ?>
 
