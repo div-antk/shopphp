@@ -27,6 +27,10 @@ $postal_code1 = $post['postal_code1'];
 $postal_code2 = $post['postal_code2'];
 $address = $post['address'];
 $tel = $post['tel'];
+$order = $post['order'];
+$password = $post['password'];
+$gender = $post['gender'];
+$birth = $post['birth'];
 
 print "${name}様、ご注文ありがとうございました！<br><br>";
 print "${email} にメールを送りましたので、ご確認ください。<br>";
@@ -80,12 +84,45 @@ $sql = 'LOCK TABLES dat_order_customer WRITE,dat_order_product WRITE';
 $stmt = $dbh->prepare($sql);
 $stmt->execute();
 
+$lastmembercode = 0;
+if($order == 'order_member')
+{
+  $sql = 'INSERT INTO dat_member
+  (m_name, m_password, m_email, m_postal_code1, m_postal_code2, m_address, m_address, m_tel, m_gender, m_born) VALUES(?,?,?,?,?,?,?,?,?,?)';
+  $stmt = $dbh->prepare($sql);
+  $data = array();
+  $data[] = md5($pass);
+  $data[] = $name;
+  $data[] = $email;
+  $data[] = $postal_code1;
+  $data[] = $postal_code2;
+  $data[] = $address;
+  $data[] = $tel;
+  switch($gender)
+      {
+        case 'male':
+          $data[] = 1;
+          break;
+        case 'female':
+          $data[] = 2;
+          break;
+      }
+  $data[] = $birth;
+  $stmt->execute($data);
+
+  $sql = 'SELECT LAST_INSERT_ID()';
+  $stmt = $dbh->prepare($sql);
+  $stmt->execute($data);
+  $rec = $stmt->fetch(PDO::FETCH_ASSOC);
+  $lastmembercode = $rec['LAST_INSERT_ID()'];
+}
+
 // 注文データを追加する
 
 $sql = 'INSERT INTO dat_order_customer (customer_code, c_name, c_email, c_postal_code1, c_postal_code2, c_address, c_tel) VALUES (?,?,?,?,?,?,?)';
 $stmt = $dbh->prepare($sql);
 $data = array();
-$data[] = 0;
+$data[] = $lastmembercode;
 $data[] = $name;
 $data[] = $email;
 $data[] = $postal_code1;
