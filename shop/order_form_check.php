@@ -124,7 +124,13 @@ if($okflg == true)
     print '<input type="hidden" name="postal_code2" value="'.$postal_code2.'">';
     print '<input type="hidden" name="address" value="'.$address.'">';
     print '<input type="hidden" name="tel" value="'.$tel.'">';
-    // print '<input type="hidden" name="tel" value="'.$tel.'">';
+    
+    // 会員情報を渡す
+    print '<input type="hidden" name="order" value="'.$order.'">';
+    print '<input type="hidden" name="password" value="'.$password.'">';
+    print '<input type="hidden" name="gender" value="'.$gender.'">';
+    print '<input type="hidden" name="birth" value="'.$birth.'">';
+
     print '<input type="button" onclick="history.back()" value="戻る">';
     print '<input type="submit" value="OK"><br>';
   print '</form>';
