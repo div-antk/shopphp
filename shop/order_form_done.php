@@ -29,6 +29,7 @@ $address = $post['address'];
 $tel = $post['tel'];
 $order = $post['order'];
 $password = $post['password'];
+// $password2 = $post['password2'];
 $gender = $post['gender'];
 $birth = $post['birth'];
 
@@ -80,7 +81,7 @@ for($i=0 ; $i<$max ; $i++)
 
 // 安全な処理のためテーブルロックをかける
 
-$sql = 'LOCK TABLES dat_order_customer WRITE,dat_order_product WRITE';
+$sql = 'LOCK TABLES dat_order_customer WRITE,dat_order_product WRITE, dat_member WRITE';
 $stmt = $dbh->prepare($sql);
 $stmt->execute();
 
@@ -88,11 +89,11 @@ $lastmembercode = 0;
 if($order == 'order_member')
 {
   $sql = 'INSERT INTO dat_member
-  (m_name, m_password, m_email, m_postal_code1, m_postal_code2, m_address, m_address, m_tel, m_gender, m_born) VALUES(?,?,?,?,?,?,?,?,?,?)';
+  (m_name, m_password, m_email, m_postal_code1, m_postal_code2, m_address, m_tel, m_gender, m_born) VALUES(?,?,?,?,?,?,?,?,?)';
   $stmt = $dbh->prepare($sql);
   $data = array();
-  $data[] = md5($pass);
   $data[] = $name;
+  $data[] = md5($password);
   $data[] = $email;
   $data[] = $postal_code1;
   $data[] = $postal_code2;
@@ -112,7 +113,7 @@ if($order == 'order_member')
 
   $sql = 'SELECT LAST_INSERT_ID()';
   $stmt = $dbh->prepare($sql);
-  $stmt->execute($data);
+  $stmt->execute();
   $rec = $stmt->fetch(PDO::FETCH_ASSOC);
   $lastmembercode = $rec['LAST_INSERT_ID()'];
 }
