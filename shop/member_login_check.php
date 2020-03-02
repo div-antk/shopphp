@@ -5,13 +5,10 @@ require_once('../common/common.php');
 try
 {
   $post=sanitize($_POST);
-  $staff_code = $post['code'];
-  $staff_pass = $post['pass'];
-
-  // $staff_code = htmlspecialchars($staff_code,ENT_QUOTES,'UTF-8');
-  // $staff_pass = htmlspecialchars($staff_pass,ENT_QUOTES,'UTF-8');
+  $member_email = $post['email'];
+  $member_pass = $post['pass'];
   
-  $staff_pass = md5($staff_pass);
+  $member_pass = md5($member_pass);
 
   $dsn = 'mysql:dbname=shop;host=localhost;charset=utf8';
   $user = 'root';
@@ -19,10 +16,10 @@ try
   $dbh = new PDO($dsn, $user, $password);
   $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   
-  $sql = 'SELECT name FROM mst_staff WHERE code=? AND password=?';
+  $sql = 'SELECT code,m_name FROM dat_member WHERE m_email=? AND m_password=?';
   $stmt = $dbh->prepare($sql);
-  $data[] = $staff_code;
-  $data[] = $staff_pass;
+  $data[] = $member_pass;
+  $data[] = $member_email;
   $stmt->execute($data);
 
   $dbh = null;
@@ -31,16 +28,17 @@ try
 
   if($rec == false)
   {
-    print 'スタッフコード、またはパスワードが間違っています。<br>';
-    print '<a href="staff_login.html">戻る</a>';
+    print 'メールアドレス、またはパスワードが間違っています。<br>';
+    print '<a href="member_login.html">戻る</a>';
+    print_r($data);
   }
   else
   {
     session_start(); // ユーザー認証
-    $_SESSION['login'] = 1;
-    $_SESSION['staff_code'] = $staff_code;
-    $_SESSION['staff_name'] = $rec['name'];
-    header('Location: staff_top.php');
+    $_SESSION['member_login'] = 1;
+    $_SESSION['member_code'] = $rec['code'];
+    $_SESSION['member_name'] = $rec['name'];
+    header('Location: shop_list.php');
     exit();
   }
 }
