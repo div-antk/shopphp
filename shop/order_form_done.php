@@ -28,11 +28,11 @@ $postal_code2 = $post['postal_code2'];
 $address = $post['address'];
 $tel = $post['tel'];
 $order = $post['order'];
-$password = $post['password'];
-// $password2 = $post['password2'];
+$pass = $post['password'];
 $gender = $post['gender'];
 $birth = $post['birth'];
 
+print_r ($post);
 print "${name}様、ご注文ありがとうございました！<br><br>";
 print "${email} にメールを送りましたので、ご確認ください。<br>";
 print "商品は以下の住所に発送させていただきます。<br><br>";
@@ -93,7 +93,7 @@ if($order == 'order_member')
   $stmt = $dbh->prepare($sql);
   $data = array();
   $data[] = $name;
-  $data[] = md5($password);
+  $data[] = md5($pass);
   $data[] = $email;
   $data[] = $postal_code1;
   $data[] = $postal_code2;

@@ -10,7 +10,7 @@ if(isset($_SESSION['member_login'])==false)
 }
 else
 {
-  print 'ようこそ';
+  print 'ようこそ、';
   print $_SESSION['member_name'];
   print '様<br>';
   print '<a href="member_logout.php">ログアウト</a><br>';
