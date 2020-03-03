@@ -10,7 +10,7 @@ if(isset($_SESSION['member_login'])==false)
 }
 else
 {
-  print 'ようこそ';
+  print 'ようこそ、';
   print $_SESSION['member_name'];
   print '様<br>';
   print '<a href="member_logout.php">ログアウト</a><br>';
@@ -120,10 +120,17 @@ catch (PDOException $e)
 <input type="hidden" name="max" value="<?php print $max; ?>">
 <input type="submit" value="数量変更"><br>
 <a href="shop_list.php">商品一覧に戻る</a>
-<!-- <input type="button" onclick="history.back()" value="戻る"> -->
 </form>
 <br>
 <a href="order_form.html">レジに進む</a><br>
+
+<?php
+  if(isset($_SESSION["member_login"])==true)
+  {
+    print '<a href="easy_order_check.php">会員様用レジへ進む</a><br>';
+  }
+
+?>
 
 </body>
 </html>
