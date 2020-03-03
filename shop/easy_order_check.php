@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 session_regenerate_id(true);
 if(isset($_SESSION['member_login'])==false)
@@ -7,6 +8,7 @@ if(isset($_SESSION['member_login'])==false)
   print '<a href="shop_list.php">商品一覧へ</a>';
   exit();
 }
+
 ?>
 
 <!DOCTYPE html>

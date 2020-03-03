@@ -2,6 +2,12 @@
 
 session_start();
 session_regenerate_id(true);
+if(isset($_SESSION['member_login'])==false)
+{
+  print 'ログインされていません。<br>';
+  print '<a href="shop_list.php">商品一覧へ</a>';
+  exit();
+}
 
 ?>
 
@@ -27,10 +33,6 @@ $postal_code1 = $post['postal_code1'];
 $postal_code2 = $post['postal_code2'];
 $address = $post['address'];
 $tel = $post['tel'];
-$order = $post['order'];
-$pass = $post['password'];
-$gender = $post['gender'];
-$birth = $post['birth'];
 
 print "${name}様、ご注文ありがとうございました！<br><br>";
 print "${email} にメールを送りましたので、ご確認ください。<br>";
@@ -84,38 +86,7 @@ $sql = 'LOCK TABLES dat_order_customer WRITE,dat_order_product WRITE, dat_member
 $stmt = $dbh->prepare($sql);
 $stmt->execute();
 
-$lastmembercode = 0;
-if($order == 'order_member')
-{
-  $sql = 'INSERT INTO dat_member
-  (m_name, m_password, m_email, m_postal_code1, m_postal_code2, m_address, m_tel, m_gender, m_born) VALUES(?,?,?,?,?,?,?,?,?)';
-  $stmt = $dbh->prepare($sql);
-  $data = array();
-  $data[] = $name;
-  $data[] = md5($pass);
-  $data[] = $email;
-  $data[] = $postal_code1;
-  $data[] = $postal_code2;
-  $data[] = $address;
-  $data[] = $tel;
-  switch($gender)
-      {
-        case 'male':
-          $data[] = 1;
-          break;
-        case 'female':
-          $data[] = 2;
-          break;
-      }
-  $data[] = $birth;
-  $stmt->execute($data);
-
-  $sql = 'SELECT LAST_INSERT_ID()';
-  $stmt = $dbh->prepare($sql);
-  $stmt->execute();
-  $rec = $stmt->fetch(PDO::FETCH_ASSOC);
-  $lastmembercode = $rec['LAST_INSERT_ID()'];
-}
+$lastmembercode = $_SESSION['member_code'];
 
 // 注文データを追加する
 
@@ -161,14 +132,6 @@ $stmt->execute();
 
 $dbh = null;
 
-if($order == 'order_member')
-{
-  print '<br>';
-  print '会員登録が完了しました。<br>';
-  print '次回から、ログインしていただくとご注文が簡単になります！';
-  print '<br>';
-}
-
 // 自動返信メールの文面
 
 $text .= "送料は無料です\n";
@@ -177,13 +140,6 @@ $text .= "\n";
 $text .= "代金は以下の口座にお振込みください。\n";
 $text .= "モノポリー銀行 ボードウォーク支店 普通 1234567\n";
 $text .= "入金が確認出来次第、発送いたします。\n";
-if($order == 'order_member')
-{
-$text .= "\n";
-$text .= "会員登録が完了しました。\n";
-$text .= "次回から、ログインしていただくとご注文が簡単になります！\n";
-$text .= "\n";
-}
 
 $text .= "////////////////////\n";
 $text .= "\n";

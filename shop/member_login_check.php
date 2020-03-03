@@ -32,7 +32,6 @@ try
   {
     print 'メールアドレス、またはパスワードが間違っています。<br>';
     print '<a href="member_login.html">戻る</a>';
-    print_r($data);
   }
   else
   {
