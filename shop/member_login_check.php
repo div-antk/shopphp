@@ -1,5 +1,6 @@
 <?php
 
+session_start(); // ユーザー認証は一番はじめに書かなければならない
 require_once('../common/common.php');
 
 try
@@ -16,7 +17,8 @@ try
   $dbh = new PDO($dsn, $user, $password);
   $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   
-  $sql = 'SELECT code,m_name FROM dat_member WHERE m_email=? AND m_password=?';
+  // $sql = 'SELECT code,m_name FROM dat_member WHERE m_email=?';
+  $sql = 'SELECT code,m_name FROM dat_member WHERE m_password=? AND m_email=?';
   $stmt = $dbh->prepare($sql);
   $data[] = $member_pass;
   $data[] = $member_email;
@@ -34,10 +36,9 @@ try
   }
   else
   {
-    session_start(); // ユーザー認証
     $_SESSION['member_login'] = 1;
     $_SESSION['member_code'] = $rec['code'];
-    $_SESSION['member_name'] = $rec['name'];
+    $_SESSION['member_name'] = $rec['m_name'];
     header('Location: shop_list.php');
     exit();
   }
