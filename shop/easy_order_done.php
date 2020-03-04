@@ -182,7 +182,7 @@ catch (PDOException $e)
 ?>
 
 <br>
-<a href="redirect.php">商品一覧へ戻る</a>
+<a href="shop_list.php">商品一覧へ戻る</a>
 
 </body>
 </html>
