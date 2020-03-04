@@ -15,7 +15,7 @@ if(isset($_SESSION['member_login'])==false)
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>ろくまる農園</title>
+    <title>あんどう時計店</title>
   </head>
 <body>
 

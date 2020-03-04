@@ -49,12 +49,4 @@ catch (PDOException $e)
   exit();
 }
 
-// catch (Exception $e)
-// {
-//   print 'ただいま障害により大変ご迷惑をおかけしております。';
-//   // エラーメッセージを表示させる
-//   echo '捕捉した例外: ',  $e->getMessage(), "\n";
-//   exit();
-// }
-
 ?>

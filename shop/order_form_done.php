@@ -9,7 +9,7 @@ session_regenerate_id(true);
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>ろくまる農園</title>
+    <title>あんどう時計店</title>
   </head>
 <body>
 
@@ -187,6 +187,7 @@ $text .= "\n";
 
 $text .= "////////////////////\n";
 $text .= "\n";
+$text .= "あんどう時計店\n";
 $text .= "株式会社はたらくねこ\n";
 $text .= "\n";
 $text .= "////////////////////\n";

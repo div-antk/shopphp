@@ -15,7 +15,7 @@ if(isset($_SESSION['member_login'])==false)
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>ろくまる農園</title>
+    <title>あんどう時計店</title>
   </head>
 <body>
 
@@ -108,7 +108,7 @@ $sql = 'SELECT LAST_INSERT_ID()'; // 直近で発番された番号を取得
 $stmt = $dbh->prepare($sql);
 $stmt->execute();
 $rec = $stmt->fetch(PDO::FETCH_ASSOC);
-$lastmembercode = $rec['LAST_INSERT_ID()'];
+$lastcode = $rec['LAST_INSERT_ID()'];
 
 // 商品明細を追加する
 
@@ -117,7 +117,7 @@ for($i=0 ; $i<$max ; $i++)
   $sql = 'INSERT INTO dat_order_product (order_code, product_code, price, quantity) VALUES (?,?,?,?)';
   $stmt = $dbh->prepare($sql);
   $data = array();
-  $data[] = $lastmembercode;
+  $data[] = $lastcode;
   $data[] = $cart[$i];
   $data[] = $price_array[$i];
   $data[] = $quantity[$i];
