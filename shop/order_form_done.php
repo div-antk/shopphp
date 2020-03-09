@@ -216,6 +216,9 @@ mb_language('Japanese');
 mb_internal_encoding('UTF-8');
 mb_send_mail('info@hatarakuneko.co.jp', $title, $text, $header);
 
+
+session_destroy();
+
 }
 
 catch (PDOException $e)
