@@ -216,9 +216,6 @@ mb_language('Japanese');
 mb_internal_encoding('UTF-8');
 mb_send_mail('info@hatarakuneko.co.jp', $title, $text, $header);
 
-
-session_destroy();
-
 }
 
 catch (PDOException $e)
@@ -230,7 +227,7 @@ catch (PDOException $e)
 ?>
 
 <br>
-<a href="shop_list.php">商品一覧へ戻る</a>
+<a href="empty_cart.php">商品一覧へ戻る</a>
 
 </body>
 </html>
