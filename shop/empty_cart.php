@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 $_SESSION=array();
 if (isset($_COOKIE[session_name()])==true)
@@ -8,17 +7,7 @@ if (isset($_COOKIE[session_name()])==true)
   }
 session_destroy();
 
+header('Location:shop_list.php');
+exit;
+
 ?>
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>あんどう時計店</title>
-  </head>
-<body>
-
-カートが空になりました。<br>  
-
-</body>
-</html>
